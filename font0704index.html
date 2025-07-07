@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>font0704 字体预览</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f0f0f0;
+      padding: 40px;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.5em;
+      margin-bottom: 40px;
+    }
+
+    .font-block {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    .font-name {
+      font-size: 1.2em;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .preview-text {
+      font-size: 36px;
+      margin-top: 10px;
+    }
+
+    a.download {
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 14px;
+      color: #007aff;
+      text-decoration: none;
+    }
+
+    a.download:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>font0704 字体展示</h1>
+
+  <div id="fontContainer">
+    <!-- 字体块将通过 JS 自动插入 -->
+  </div>
+
+  <script>
+    const fonts = [
+      // 列出所有已上传的 otf 文件名（只填文件名）
+      "font0704-Regular.otf",
+      "font0704-Bold.otf",
+      "font0704-Light.otf"
+      // 如果你有更多，继续添加
+    ];
+
+    const container = document.getElementById('fontContainer');
+
+    fonts.forEach(fontFile => {
+      const fontName = fontFile.replace('.otf', '');
+      const fontId = fontName.replace(/[^a-zA-Z0-9]/g, '');
+
+      // 添加 @font-face
+      const style = document.createElement('style');
+      style.textContent = `
+        @font-face {
+          font-family: '${fontId}';
+          src: url('./${fontFile}') format('opentype');
+        }
+      `;
+      document.head.appendChild(style);
+
+      // 创建展示区块
+      const block = document.createElement('div');
+      block.className = 'font-block';
+      block.innerHTML = `
+        <div class="font-name">${fontFile}</div>
+        <div class="preview-text" style="font-family: '${fontId}', sans-serif;">
+          Hello 字体展示 123 ABC
+        </div>
+        <a class="download" href="./${fontFile}" download>下载</a>
+      `;
+      container.appendChild(block);
+    });
+  </script>
+
+</body>
+</html>
