@@ -1,13 +1,12 @@
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>font0704 字体预览</title>
+  <title>font0704 字体展示</title>
   <style>
     body {
       font-family: sans-serif;
-      background: #f0f0f0;
+      background: #f8f8f8;
       padding: 40px;
       color: #333;
     }
@@ -22,19 +21,21 @@
       background: white;
       border-radius: 12px;
       padding: 20px;
-      margin-bottom: 30px;
+      margin-bottom: 40px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.05);
     }
 
     .font-name {
-      font-size: 1.2em;
+      font-size: 1.1em;
       font-weight: bold;
       margin-bottom: 10px;
     }
 
     .preview-text {
-      font-size: 36px;
+      font-size: 32px;
       margin-top: 10px;
+      white-space: pre-wrap;
+      line-height: 1.6;
     }
 
     a.download {
@@ -54,44 +55,101 @@
 
   <h1>font0704 字体展示</h1>
 
-  <div id="fontContainer"></div>
+  <div class="font-block" style="font-family: 'DOT';">
+    <div class="font-name">DOT.otf</div>
+    <div class="preview-text" style="font-family: 'DOT';">
+ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>
+HIJKLMN<br>
+OPQRST<br>
+UVWXYZ<br>
+123456<br>
+7890@<br>
+()?^….,:/'!
+    </div>
+    <a class="download" href="./DOT.otf" download>下载</a>
+  </div>
+
+  <div class="font-block" style="font-family: 'Handwriting1';">
+    <div class="font-name">Handwriting1.otf</div>
+    <div class="preview-text" style="font-family: 'Handwriting1';">
+abcdefghijklmnopqrstuvwxyz<br>
+1234567890<br>
+!@%&.:;?’#^
+    </div>
+    <a class="download" href="./Handwriting1.otf" download>下载</a>
+  </div>
+
+  <div class="font-block" style="font-family: 'Handwriting2';">
+    <div class="font-name">Handwriting2.otf</div>
+    <div class="preview-text" style="font-family: 'Handwriting2';">
+abcdefghijklmno<br>
+pqrstuv<br>
+wxyz
+    </div>
+    <a class="download" href="./Handwriting2.otf" download>下载</a>
+  </div>
+
+  <div class="font-block" style="font-family: 'Handwriting3';">
+    <div class="font-name">Handwriting3.otf</div>
+    <div class="preview-text" style="font-family: 'Handwriting3';">
+abcdefghijklmnopqrstuvwxyz
+    </div>
+    <a class="download" href="./Handwriting3.otf" download>下载</a>
+  </div>
+
+  <div class="font-block" style="font-family: 'Handwriting4';">
+    <div class="font-name">Handwriting4.otf</div>
+    <div class="preview-text" style="font-family: 'Handwriting4';">
+abcdefgh<br>
+ghijklm<br>
+nopqrst<br>
+uvwxyz
+    </div>
+    <a class="download" href="./Handwriting4.otf" download>下载</a>
+  </div>
+
+  <div class="font-block" style="font-family: 'MusicalNote';">
+    <div class="font-name">Musical Note.otf</div>
+    <div class="preview-text" style="font-family: 'MusicalNote';">
+abcdefghijklmnopqrstuvwxyz<br>
+1234567890<br>
+!@#%^&’.,:;?
+    </div>
+    <a class="download" href="./Musical Note.otf" download>下载</a>
+  </div>
+
+  <div class="font-block" style="font-family: 'Serif';">
+    <div class="font-name">Serif.otf</div>
+    <div class="preview-text" style="font-family: 'Serif';">
+ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>
+HIJKLMN<br>
+OPQRSTU<br>
+VWXYZ
+    </div>
+    <a class="download" href="./Serif.otf" download>下载</a>
+  </div>
 
   <script>
-    const fonts = [
-      "DOT.otf",
-      "Handwriting1.otf",
-      "Handwriting2.otf",
-      "Handwriting3.otf",
-      "Handwriting4.otf",
-      "Musical Note.otf",
-      "Serif.otf"
+    const fontDefs = [
+      ["DOT", "DOT.otf"],
+      ["Handwriting1", "Handwriting1.otf"],
+      ["Handwriting2", "Handwriting2.otf"],
+      ["Handwriting3", "Handwriting3.otf"],
+      ["Handwriting4", "Handwriting4.otf"],
+      ["MusicalNote", "Musical Note.otf"],
+      ["Serif", "Serif.otf"]
     ];
 
-    const container = document.getElementById('fontContainer');
-
-    fonts.forEach(fontFile => {
-      const fontName = fontFile.replace('.otf', '');
-      const fontId = fontName.replace(/[^a-zA-Z0-9]/g, '');
-
+    const head = document.head;
+    fontDefs.forEach(([fontId, fileName]) => {
       const style = document.createElement('style');
       style.textContent = `
         @font-face {
           font-family: '${fontId}';
-          src: url('./${fontFile}') format('opentype');
+          src: url('./${fileName}') format('opentype');
         }
       `;
-      document.head.appendChild(style);
-
-      const block = document.createElement('div');
-      block.className = 'font-block';
-      block.innerHTML = `
-        <div class="font-name">${fontFile}</div>
-        <div class="preview-text" style="font-family: '${fontId}', sans-serif;">
-          Hello 字体展示 123 ABC
-        </div>
-        <a class="download" href="./${fontFile}" download>下载</a>
-      `;
-      container.appendChild(block);
+      head.appendChild(style);
     });
   </script>
 
